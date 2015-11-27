@@ -87,7 +87,7 @@ main {
     list-style: none;
 
     li {
-        margin: 0;
+        margin: 0 0 (@baseLine * 3);
 
         &:before {
             display: inline-block;
@@ -106,7 +106,12 @@ main {
         content: '1';
     }
 
-    .one.completed:before {
+    .two:before {
+        content: '2';
+    }
+
+    .one.completed:before,
+    .two.completed:before {
         content: '✓';
         color: @buttonColor;
         margin-right: 10px;
@@ -177,7 +182,7 @@ video {
     }
 }
 
-a[role="button"],
+a.taskview-button,
 button {
     display: block;
     background-color: @buttonColor;
@@ -187,6 +192,13 @@ button {
     width: 100%;
     .font-size(24px);
     cursor: pointer;
+}
+
+a.taskview-button {
+    &:link,
+    &:visited {
+        color: #32333a;
+    }
 }
 
 a[role="button"] {
@@ -201,6 +213,11 @@ a[role="button"] {
 /* download Firefox conditional content */
 .get-firefox {
     text-align: center;
+}
+
+.visibly-hidden {
+    .visually-hidden;
+    opacity: 0;
 }
 
 .hidden {

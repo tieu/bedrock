@@ -29,15 +29,6 @@ main {
     h3 {
         .font-size(19px);
         cursor: pointer;
-    }
-
-    h3:before {
-        display: block;
-        content: '';
-        background: transparent url('/media/img/contribute/signup/tasks-sprite.png') 0 0 no-repeat;
-        margin: 0 auto 20px;
-        width: 210px;
-        height: 210px;
 
         &.fx-mobile:before {
             background-position: -316px 0;
@@ -58,6 +49,15 @@ main {
         &.devtools:before {
             background-position: -641px -220px;
         }
+    }
+
+    h3:before {
+        display: block;
+        content: '';
+        background: transparent url('/media/img/contribute/signup/tasks-sprite.png') 0 0 no-repeat;
+        margin: 0 auto 20px;
+        width: 210px;
+        height: 210px;
     }
 
     a:link,

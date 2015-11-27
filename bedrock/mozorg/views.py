@@ -243,6 +243,11 @@ def contribute_signup(request):
     return view_class.as_view()(request)
 
 
+def contribute_signup_alternate(request):
+    template_name = 'mozorg/contribute/signup-alternate.html'
+    return l10n_utils.render(request, template_name)
+
+
 @csrf_exempt
 def contribute(request, template, return_to_form):
     newsletter_form = NewsletterFooterForm('about-mozilla', l10n_utils.get_locale(request))
