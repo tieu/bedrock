@@ -219,8 +219,8 @@ urlpatterns = (
         kwargs={'template': 'mozorg/contribute/contribute-embed.html',
                 'return_to_form': False}),
     url('^contribute/signup/$', views.contribute_signup, name='mozorg.contribute.signup'),
-    url('^contribute/signup_b/$', views.contribute_signup_alternate,
-        name='mozorg.contribute.signup_b'),
+    url('^contribute/signup_alternate/$', views.contribute_signup_alternate,
+        name='mozorg.contribute.signup_alternate'),
 
     page('contribute/task/whimsy', 'mozorg/contribute/tasks/whimsy.html'),
     page('contribute/task/firefox-mobile', 'mozorg/contribute/tasks/firefox-mobile.html'),
@@ -230,6 +230,11 @@ urlpatterns = (
     page('contribute/task/devtools-challenger', 'mozorg/contribute/tasks/devtools-challenger.html'),
 
     page('contribute/task/v2/whimsy', 'mozorg/contribute/tasks/v2/whimsy.html'),
+    page('contribute/task/v2/firefox-mobile', 'mozorg/contribute/tasks/v2/firefox-mobile.html'),
+    page('contribute/task/v2/follow-mozilla', 'mozorg/contribute/tasks/v2/follow-mozilla.html'),
+    page('contribute/task/v2/joy-of-coding', 'mozorg/contribute/tasks/v2/joy-of-coding.html'),
+    page('contribute/task/v2/build-firefox', 'mozorg/contribute/tasks/v2/build-firefox.html'),
+    page('contribute/task/v2/devtools-challenger', 'mozorg/contribute/tasks/v2/devtools-challenger.html'),
 
     url('^contribute/thankyou/$',
         views.ContributeSignupThankyou.as_view(),
