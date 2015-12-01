@@ -5,6 +5,7 @@
 ;(function($, Mozilla) {
     'use strict';
 
+    var client = Mozilla.Client;
     var isOldIE = (/MSIE\s[1-7]\./.test(navigator.userAgent));
 
     // slideshow/accordion variables
@@ -27,7 +28,7 @@
     $screencastImages.append($('#screencast .media-desktop').html());
 
     // hide download buttons from Android users
-    if (window.isFirefox() && window.site.platform === 'android') {
+    if (client.isFirefoxAndroid) {
         $('.dl-button-wrapper').hide();
 
         $('#subscribe-wrapper').removeClass('floating');
@@ -316,7 +317,7 @@
     };
 
     // only run tests for en-US desktop users
-    if (testVars.lang === 'en-US' && $.inArray(window.site.platform, ['android', 'ios', 'fxos']) === -1) {
+    if (testVars.lang === 'en-US' && client.isDesktop) {
         $sendToDeviceWidgetForm = $('#send-to-device-form');
 
         // embed send to device widget in intro
