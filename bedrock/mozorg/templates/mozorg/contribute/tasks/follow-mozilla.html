@@ -10,14 +10,13 @@
 {% block taskview_lead %}{{ _('There are so many ways to get involved with Mozilla and support the browser. Follow Firefox and learn more about the browser, and how you can pitch in!') }}{% endblock %}
 
 {% block task_content %}
-  <ol class="task-steps single">
+  <ol class="task-steps">
     <li id="step_one" class="one">
       <header>
         <h3>{{ _('Follow @MozParticipate') }}</h3>
       </header>
       <div class="step-content">
-        <img src="{{ static('/media/img/contribute/signup/startmozilla.png') }}" width="600" height="338" alt="" />
-        <a href="https://twitter.com/intent/follow/?screen_name=mozparticipate" rel="external" class="follow-mozilla" role="button">Follow @MozParticipate</a>
+        <a href="https://twitter.com/intent/follow/?screen_name=mozparticipate" rel="external" class="follow-mozilla taskview-button" data-action="follow" data-task="follow-mozilla" data-step="one" data-complete="true">{{ _('Follow @MozParticipate') }}</a>
       </div>
     </li>
   </ol>

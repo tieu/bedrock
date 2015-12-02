@@ -17,7 +17,7 @@
 {% endblock %}
 
 {% block task_content %}
-  <ol class="task-steps single">
+  <ol class="task-steps">
     <li id="step_one" class="one">
       <header>
         <h3>{{ _('Install Whimsy') }}</h3>
@@ -25,7 +25,7 @@
       </header>
       <div class="step-content">
         {{ high_res_img('contribute/signup/whimsey.png', {'width': '600', 'height': '338', 'alt': ''}) }}
-        <button type="button" class="install-whimsey">Add Whimsy to Firefox</button>
+        <button type="button" data-action="install" data-task="whimsy" data-step="one" data-complete="true">{{ _('Add Whimsy to Firefox') }}</button>
       </div>
     </li>
   </ol>

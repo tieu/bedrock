@@ -1,6 +1,7 @@
 $(function() {
     'use strict';
 
+    var $taskSteps = $('.task-steps');
     var $stepOne = $('#step_one');
     var $thankYou = $('#thankyou');
     var $getFirefox = $('.get-firefox');
@@ -17,38 +18,20 @@ $(function() {
     }
 
     /**
-     * Waits for the initial tab/window to become visible, and then
-     * proceeds to complete the relevant task step.
+     *
      */
-    function handleVisibilityChange() {
-        document.addEventListener('visibilitychange', function() {
-            // we wait until our current tab is visible before
-            // showing the thank you message.
-            if (document.visibilityState === 'visible') {
-                // toggles number to check mark display
-                $stepOne.addClass('completed');
-                taskComplete();
+    function completeStep($step) {
+        var $stepOne = $('#step_one');
+        var $stepTwo = $('#step_two');
 
-                document.removeEventListener('visibilitychange');
-            }
-        });
-    }
+        if ($step.data('step') === 'one') {
+            $stepOne.toggleClass('completed');
+        } else if ($step.data('step') === 'two') {
+            $stepTwo.toggleClass('completed');
+        }
 
-    /**
-     * Handles blur and focus events on the main window, and completes
-     * the task step once the main window receives focus.
-     */
-    function handleFocusChange() {
-        var taskCompleted = false;
-
-        if (!taskCompleted) {
-            // once our original window receives focus again, complete the task.
-            window.onfocus = function() {
-                taskComplete();
-                $stepOne.addClass('completed');
-            };
-            // ensure this only happens once.
-            taskCompleted = true;
+        if ($step.data('complete') === true) {
+            taskComplete();
         }
     }
 
@@ -64,36 +47,41 @@ $(function() {
     }
 
     /**
-     * Completions steps after the install buttons was clicked
+     * Waits for the initial tab/window to become visible, and then
+     * proceeds to complete the relevant task step.
      */
-    function installWhimsey() {
-        // toggles number to check mark display
-        $stepOne.toggleClass('completed');
-        taskComplete();
+    function handleVisibilityChange($step) {
+        $(document).on('visibilitychange.taskview', function() {
+            // we wait until our current tab is visible before
+            // showing the thank you message.
+            if (document.visibilityState === 'visible') {
+                completeStep($step);
+                $(document).off('visibilitychange.taskview');
+            }
+        });
     }
 
     /**
-     * Opens a new scaled window that allows a user to follow
-     * @StartMozilla on Twitter.
+     * Handles blur and focus events on the main window, and completes
+     * the task step once the main window receives focus.
      */
-    function followMozilla() {
-        window.open(intentURL, 'twitter', 'width=550,height=480,scrollbars');
-        // when opening the above window, we cannot use the page visiblility
-        // API to determine when our main window recieves focus, as the API only
-        // works when the entire window is obscured, such as when you open a new tab.
-        handleFocusChange();
+    function handleFocusChange($step) {
+        var taskCompleted = false;
+
+        if (!taskCompleted) {
+            // once our original window receives focus again, complete the task.
+            window.onfocus = function() {
+                completeStep($step);
+            };
+            // ensure this only happens once.
+            taskCompleted = true;
+        }
     }
 
-    $downloadButton.on('click', function(event) {
-        // the above will open one of the app stores in a new tab
-        // we only want to check the step and show the thank you
-        // message once our tab is visible again.
-        handleVisibilityChange();
-    });
-
-    // only bind the handler when the form exists
-    if ($signupTweetForm.length > 0) {
-
+    /**
+     *
+     */
+    function initTweetForm() {
         var $tweetField = $('#tweet_txt');
         var $charCount = $('.char-count');
         var maxLength = 140;
@@ -110,6 +98,7 @@ $(function() {
         $signupTweetForm.on('submit', function(event) {
             event.preventDefault();
 
+            var $submitButton = $('input[type="submit"]');
             var tweetIntentURL = $signupTweetForm.attr('action');
             var tweetContent = $tweetField.val();
             var hashTag = $('#hashtag').attr('value');
@@ -117,25 +106,68 @@ $(function() {
 
             window.open(tweet, 'twitter', 'width=550,height=480,scrollbars');
 
-            handleFocusChange();
+            handleFocusChange($submitButton);
         });
     }
 
-    $stepOne.on('click', function(event) {
+    /**
+     * Handles completion of Whimsy interaction steps.
+     */
+    function whimsy(event) {
 
-        var className = event.target.className;
+        var $this = $(event.target);
 
-        if (className === 'install-whimsey') {
+        if ($this.data('action') === 'install') {
             event.preventDefault();
-            installWhimsey();
-        } else if (className === 'watch-joc') {
+            // do stuff
+            completeStep($this);
+        } else if ($this.data('action') === 'rate') {
+            handleVisibilityChange($this);
+        }
+    }
+
+    /**
+     * Handles completion of Firefox Mobile interaction steps.
+     */
+    function installFirefox(event) {
+
+        var $this = $(event.target);
+
+        if ($this.data('action') === 'install') {
+            handleVisibilityChange($this);
+        }
+    }
+
+    /**
+     * Handles completion of Follow Mozilla interaction steps.
+     */
+    function followMozilla(event) {
+        var $this = $(event.target);
+        var intentURL = $this.attr('href');
+
+        if ($this.data('action') === 'follow') {
             event.preventDefault();
-            playJOC();
-        }  else if (className === 'follow-mozilla') {
-            event.preventDefault();
-            followMozilla();
-        } else if (className === 'build-firefox' || className === 'devtools') {
-            handleVisibilityChange();
+            window.open(intentURL, 'twitter', 'width=550,height=480,scrollbars');
+            handleFocusChange($this);
+        }
+    }
+
+    // only bind the handler when the form exists
+    if ($signupTweetForm.length > 0) {
+        initTweetForm();
+    }
+
+    $taskSteps.on('click', function(event) {
+
+        var $target = $(event.target);
+        var currentTask = $target.data('task');
+
+        if (currentTask === 'whimsy') {
+            whimsy(event);
+        } else if (currentTask === 'firefox-mobile') {
+            installFirefox(event);
+        } else if (currentTask === 'follow-mozilla') {
+            followMozilla(event);
         }
     });
 

@@ -6,6 +6,8 @@
 
 {% block page_title %}{{ _('Install Whimsy') }}{% endblock %}
 
+{% block more_tasks %}{{ url('mozorg.contribute.signup_alternate') }}{% endblock %}
+
 {% block taskview_title %}{{ _('Install Whimsy, try it out and tell us what you think!') }}{% endblock %}
 {% block taskview_lead %}{{ _('Your desktop browser should be yours to customize, not just use. Make your browser your own by adding a fun new add-on - Whimsy!') }}{% endblock %}
 
@@ -17,7 +19,7 @@
 {% endblock %}
 
 {% block task_content %}
-  <ol class="task-steps single">
+  <ol class="task-steps">
     <li id="step_one" class="one">
       <header>
         <h3>{{ _('Install Whimsy') }}</h3>
@@ -25,7 +27,7 @@
       </header>
       <div class="step-content">
         {{ high_res_img('contribute/signup/whimsey.png', {'width': '600', 'height': '338', 'alt': ''}) }}
-        <button type="button" class="install-whimsey">Add Whimsy to Firefox</button>
+        <button type="button" data-action="install" data-task="whimsy" data-step="one" data-complete="false">{{ _('Add Whimsy to Firefox') }}</button>
       </div>
     </li>
     <li id="step_two" class="two">
@@ -33,12 +35,12 @@
         <h3>{{ _('Tell us what you think') }}</h3>
       </header>
       <div class="step-content">
-        <p>{{ _('<a href="https://addons.mozilla.org/en-US/firefox/addon/whimsycorn/">Sign Into Our Add-Ons Site</a> and rate Whimsy for other users.') }}</p>
+        <p>{{ _('<a href="%s" data-action="rate" data-task="whimsy" data-step="two" data-complete="true" target="_blank">Sign Into Our Add-Ons Site</a> and rate Whimsy for other users.')|format('https://addons.mozilla.org/firefox/addon/whimsycorn/') }}</p>
       </div>
     </li>
   </ol>
 {% endblock %}
 
 {% block thank_you_msg %}
-  {{ _('Success!') }}
+  {{ _('Success. Thanks for the rating!') }}
 {% endblock %}

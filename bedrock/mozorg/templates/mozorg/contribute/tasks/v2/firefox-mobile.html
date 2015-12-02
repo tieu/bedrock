@@ -6,6 +6,8 @@
 
 {% block page_title %}{{ _('Install Firefox for iOS or Android') }}{% endblock %}
 
+{% block more_tasks %}{{ url('mozorg.contribute.signup_alternate') }}{% endblock %}
+
 {% block taskview_title %}{{ _('Use Firefox on your iOS or Android phone and tablet!') }}{% endblock %}
 {% block taskview_lead %}{{ _('Firefox is the independent mobile browser and by using this you’re supporting Mozilla’s mission and creating a browsing experience that is private and personal.') }}{% endblock %}
 
@@ -16,20 +18,30 @@
         <h3>{{ _('Install Firefox for iOS or Android') }}</h3>
       </header>
       <div class="step-content">
-        <img src="http://placehold.it/600x338?text=Placeholder+Image" width="600" height="338" alt="" />
         <div class="download-button-wrapper">
           <a rel="external"  class="download-link" href="{{ settings.GOOGLE_PLAY_FIREFOX_LINK }}" target="_blank">
-            {{ high_res_img('firefox/android/btn-google-play.png', {'alt': _('Get it on Google Play'), 'width': '129', 'height': '45', 'l10n': True}) }}
+            {{ high_res_img('firefox/android/btn-google-play.png', {'alt': _('Get it on Google Play'), 'width': '129', 'height': '45', 'l10n': True, 'data-action': 'install', 'data-task': 'firefox-mobile', 'data-step': 'one', 'data-complete': 'false'}) }}
           </a>
           <a rel="external" class="download-link" href="{{settings.APPLE_APPSTORE_FIREFOX_LINK}}" target="_blank">
-            <img src="{{ l10n_img('firefox/ios/btn-app-store.svg') }}" alt="{{ _('Download on the App Store') }}" width="152" height="45">
+            <img src="{{ l10n_img('firefox/ios/btn-app-store.svg') }}" alt="{{ _('Download on the App Store') }}" width="152" height="45" data-action="install" data-task="firefox-mobile" data-step="one" data-complete="false" />
           </a>
         </div>
       </div>
     </li>
     <li id="step_two" class="two">
+      <header>
+        <h3>{{ _('Tell your friends about Firefox on Twitter') }}</h3>
+      </header>
       <div class="step-content">
-        <p><a href="https://twitter.com/intent/tweet?text=Firefox+is+available+everywhere!+Now+you+can+get+it+for+desktop%2c+iOS+or+Android!&amp;url=https://www.mozilla.org/firefox/products&amp;hashtags=MozParticipate">{{ _('Tell your friends about Firefox on Twitter') }}</a></p>
+        <form name="tweet" id="signup-tweet" class="tweet-form" action="https://twitter.com/intent/tweet" method="get">
+          <fieldset>
+            <label for="tweet_txt" class="visually-hidden">Enter your tweet</label>
+            <textarea name="text" id="tweet_txt" maxlength="140">{{ _('Firefox is available everywhere! Now you can get it for desktop, iOS or Android!') }} https://www.mozilla.org/firefox/products</textarea>
+            <p>Number of characters left: <span class="char-count"></span></p>
+            <input type="hidden" id="hashtag" name="hashtags" value="MozParticipate" />
+            <input type="submit" value="Tweet" data-action="tweet" data-task="firefox-mobile" data-step="two" data-complete="true" />
+          </fieldset>
+        </form>
       </div>
     </li>
   </ol>
