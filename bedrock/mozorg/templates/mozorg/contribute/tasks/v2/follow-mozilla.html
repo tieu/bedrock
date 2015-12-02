@@ -6,6 +6,8 @@
 
 {% block page_title %}{{ _('Tweet to @StartMozilla and see how your technical skills can contribute!') }}{% endblock %}
 
+{% block more_tasks %}{{ url('mozorg.contribute.signup_alternate') }}{% endblock %}
+
 {% block taskview_title %}{{ _('Tweet to @StartMozilla and see how your technical skills can contribute!') }}{% endblock %}
 {% block taskview_lead %}{{ _('There are so many ways to get involved with Mozilla and support the browser. Tweet Firefox and learn more about the browser, and how you can pitch in!') }}{% endblock %}
 
@@ -16,7 +18,15 @@
         <h3>{{ _('Tweet This') }}</h3>
       </header>
       <div class="step-content">
-        <p><a href="https://twitter.com/intent/tweet?text=Firefox+is+available+everywhere!+Now+you+can+get+it+for+desktop%2c+iOS+or+Android!&amp;url=https://www.mozilla.org/firefox/products&amp;hashtags=MozParticipate">{{ _('Tell your friends about Firefox on Twitter') }}</a></p>
+        <form name="tweet" id="signup-tweet" class="tweet-form" action="https://twitter.com/intent/tweet" method="get">
+          <fieldset>
+            <label for="tweet_txt" class="visually-hidden">Enter your tweet</label>
+            <textarea name="text" id="tweet_txt" maxlength="140">Hi @startmozilla! I’m a {enter your main skill here: developer, designer, writer, etc.} who would like to contribute to Mozilla!</textarea>
+            <p>Number of characters left: <span class="char-count"></span></p>
+            <input type="hidden" id="hashtag" name="hashtags" value="QA1" />
+            <input type="submit" value="Tweet" />
+          </fieldset>
+        </form>
       </div>
     </li>
   </ol>

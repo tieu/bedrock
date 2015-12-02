@@ -6,6 +6,7 @@
 
 @backgroundColor: #32333a;
 @foregroundColor: #fff;
+@darkForeground: #333;
 @buttonColor: #81d135;
 @linkColor: #09a7c3;
 
@@ -204,9 +205,41 @@ a.taskview-button {
 a[role="button"] {
     &:link,
     &:visited {
-        color: #333;
+        color: @darkForeground;
         text-decoration: none;
         text-align: center;
+    }
+}
+
+/* Tweet form view */
+.tweet-form {
+    fieldset {
+        border: none;
+    }
+
+    legend {
+        .font-size(2rem);
+    }
+
+    textarea {
+        margin-bottom: @baseLine;
+        padding: @baseLine;
+        .font-size(1.2rem);
+        width: 700px;
+        height: 100px;
+    }
+
+    input[type="submit"] {
+        display: block;
+        background-color: @buttonColor;
+        color: @darkForeground;
+        padding: @baseLine;
+        border: none;
+        border-radius: 8px;
+        max-width: 180px;
+        .font-size(1.3rem);
+        text-align: center;
+        cursor: pointer;
     }
 }
 

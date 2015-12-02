@@ -15,7 +15,7 @@
 
 {% block alt_header %}
   <h1>{{ _('Mozilla Participation Tasks') }}</h1>
-  <a href="{{ url('mozorg.contribute.signup') }}" class="back">{{ _('I want to pick a different task.' )}}</a>
+  <a href="{% block more_tasks %}{{ url('mozorg.contribute.signup') }}{% endblock %}" class="back">{{ _('I want to pick a different task.' )}}</a>
 {% endblock %}
 
 {% block content %}
