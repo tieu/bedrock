@@ -172,7 +172,9 @@ $(function() {
             // first interaction.
             if ($jocVideo.data('watched') !== true) {
                 $jocVideo.on('timeupdate.taskview', function(event) {
-                    if (videoElement.currentTime >= 5) {
+                    // user needs to watch at least 40 seconds before we mark
+                    // this step as complete.
+                    if (videoElement.currentTime >= 40) {
                         completeStep($this);
                         // once the step has been completed,
                         // remove the event listener.
