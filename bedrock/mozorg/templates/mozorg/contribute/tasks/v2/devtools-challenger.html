@@ -4,12 +4,10 @@
 
 {% extends "mozorg/contribute/tasks/taskview-base.html" %}
 
-{% block page_title %}{{ _('Go to Dev Tools Challenger Page') }}{% endblock %}
+{% block page_title %}{{ _('Go to Dev Tools Challenger Page and Complete CSS Task') }}{% endblock %}
 
-{% block more_tasks %}{{ url('mozorg.contribute.signup_alternate') }}{% endblock %}
-
-{% block taskview_title %}{{ _('Try out our new animation editing tools in Developer Tools Challenger') }}{% endblock %}
-{% block taskview_lead %}{{ _('The more you know about the web, the easier it is to make it your own! Participate in the web by testing your web literacy skills using the new tools in Firefox Developer Edition.') }}{% endblock %}
+{% block taskview_title %}{{ _('Complete a CSS Task using our all-new Developer Tools Challenger') }}{% endblock %}
+{% block taskview_lead %}{{ _('The more you know about the web, the easier it is to make it your own! Participate in the web by testing your web literacy skills by completing a CSS task in Firefox Developer Edition.') }}{% endblock %}
 
 {% block conditional_content %}
 <section class="get-firefox hidden">
@@ -19,14 +17,30 @@
 {% endblock %}
 
 {% block task_content %}
-  <ol class="task-steps single">
+  <ol class="task-steps">
     <li id="step_one" class="one">
       <header>
-        <h3>{{ _('Join the Participation Hub') }}</h3>
+        <h3>{{ _('Go to Dev Tools Challenger') }}</h3>
       </header>
       <div class="step-content">
         <img src="{{ static('/media/img/contribute/signup/devtools.png') }}" width="600" height="338" alt="" />
-        <a href="http://devtoolschallenger.com/" rel="external" class="devtools" role="button" target="_blank">Go to Dev Tools Challenger</a>
+        <a href="http://devtoolschallenger.com/#d1600" rel="external" class="taskview-button" class="taskview-button" data-action="challenger" data-task="devtools" data-step="one" data-complete="false" target="_blank">{{ _('Take the Challenge!') }}</a>
+      </div>
+    </li>
+    <li id="step_two" class="two">
+      <header>
+        <h3>{{ _('Tell your friends on Twitter to try Developer Tools, too!') }}</h3>
+      </header>
+      <div class="step-content">
+        <form name="tweet" id="signup-tweet" class="tweet-form" action="https://twitter.com/intent/tweet" method="get">
+          <fieldset>
+            <label for="tweet_txt" class="visually-hidden">Enter your tweet</label>
+            <textarea name="text" id="tweet_txt" maxlength="140">{{ _('Have you tried the latest animation tools in Firefox? Try Dev Tools Challenger http://devtoolschallenger.com/') }}</textarea>
+            <p>Number of characters left: <span class="char-count"></span></p>
+            <input type="hidden" id="hashtag" name="hashtags" value="MozDevToolsChallenger" />
+            <input type="submit" value="Tweet" data-action="tweet" data-task="devtools" data-step="two" data-complete="true" />
+          </fieldset>
+        </form>
       </div>
     </li>
   </ol>

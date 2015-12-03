@@ -195,7 +195,17 @@ $(function() {
         if ($this.data('action') === 'join') {
             handleVisibilityChange($this);
         }
+    }
 
+    /**
+     * Handles completion of DevTools interaction steps.
+     */
+    function learnDevTools(event) {
+        var $this = $(event.target);
+
+        if ($this.data('action') === 'challenger') {
+            handleVisibilityChange($this);
+        }
     }
 
     // only bind the handler when the form exists
@@ -218,6 +228,8 @@ $(function() {
             joyOfCoding(event);
         } else if (currentTask === 'foxfooding') {
             startFoxFooding(event);
+        } else if (currentTask === 'devtools') {
+            learnDevTools(event);
         }
     });
 

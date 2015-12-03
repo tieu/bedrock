@@ -17,14 +17,14 @@
 {% endblock %}
 
 {% block task_content %}
-  <ol class="task-steps single">
+  <ol class="task-steps">
     <li id="step_one" class="one">
       <header>
-        <h3>{{ _('Join the Participation Hub') }}</h3>
+        <h3>{{ _('Go to Dev Tools Challenger') }}</h3>
       </header>
       <div class="step-content">
         <img src="{{ static('/media/img/contribute/signup/devtools.png') }}" width="600" height="338" alt="" />
-        <a href="http://devtoolschallenger.com/" rel="external" class="devtools" role="button" target="_blank">Go to Dev Tools Challenger</a>
+        <a href="http://devtoolschallenger.com/" rel="external" class="taskview-button" class="taskview-button" data-action="challenger" data-task="devtools" data-step="one" data-complete="true" target="_blank">{{ _('Learn More') }}</a>
       </div>
     </li>
   </ol>
