@@ -166,8 +166,6 @@ $(function() {
                 videoElement.play();
             }
 
-            console.log($jocVideo.data('watched'));
-
             // a user can click play again after having watched the video the
             // first time. Clicking on pause, for example, will also trigger the
             // click event so, we need to ensure we only run the below on the
@@ -188,6 +186,18 @@ $(function() {
         }
     }
 
+    /**
+     * Handles completion of FoxFooding interaction steps.
+     */
+    function startFoxFooding(event) {
+        var $this = $(event.target);
+
+        if ($this.data('action') === 'join') {
+            handleVisibilityChange($this);
+        }
+
+    }
+
     // only bind the handler when the form exists
     if ($signupTweetForm.length > 0) {
         initTweetForm();
@@ -206,6 +216,8 @@ $(function() {
             followMozilla(event);
         } else if (currentTask === 'joyofcoding') {
             joyOfCoding(event);
+        } else if (currentTask === 'foxfooding') {
+            startFoxFooding(event);
         }
     });
 
