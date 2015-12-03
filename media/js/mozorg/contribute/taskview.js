@@ -12,7 +12,7 @@ $(function() {
 
     var $signupTweetForm = $('#signup-tweet');
 
-    // some tasks, like install Whimsy, required the user to be using Firefox
+    // some tasks, like installing Whimsy, required the user to be using Firefox
     if ($getFirefox.length > -1 && !isFirefox()) {
         $getFirefox.toggleClass('hidden');
     }
@@ -114,7 +114,6 @@ $(function() {
      * Handles completion of Whimsy interaction steps.
      */
     function whimsy(event) {
-
         var $this = $(event.target);
 
         if ($this.data('action') === 'install') {
@@ -130,7 +129,6 @@ $(function() {
      * Handles completion of Firefox Mobile interaction steps.
      */
     function installFirefox(event) {
-
         var $this = $(event.target);
 
         if ($this.data('action') === 'install') {
@@ -152,6 +150,44 @@ $(function() {
         }
     }
 
+    /**
+     * Handles completion of Joy of Coding interaction steps.
+     */
+    function joyOfCoding(event) {
+        var $this = $(event.target);
+
+        if ($this.data('action') === 'play') {
+            var $jocVideo = $('#joc');
+            var videoElement = $jocVideo[0];
+
+            // if the user clicked the "Watch Video" button, the video will
+            // still be in the paused state. We need to manually play the video.
+            if (videoElement.paused) {
+                videoElement.play();
+            }
+
+            console.log($jocVideo.data('watched'));
+
+            // a user can click play again after having watched the video the
+            // first time. Clicking on pause, for example, will also trigger the
+            // click event so, we need to ensure we only run the below on the
+            // first interaction.
+            if ($jocVideo.data('watched') !== true) {
+                $jocVideo.on('timeupdate.taskview', function(event) {
+                    if (videoElement.currentTime >= 5) {
+                        completeStep($this);
+                        // once the step has been completed,
+                        // remove the event listener.
+                        $jocVideo.off('timeupdate.taskview');
+                        $jocVideo.data('watched', true);
+                    }
+                });
+            }
+        } else if ($this.data('action') === 'discuss') {
+            handleVisibilityChange($this);
+        }
+    }
+
     // only bind the handler when the form exists
     if ($signupTweetForm.length > 0) {
         initTweetForm();
@@ -168,6 +204,8 @@ $(function() {
             installFirefox(event);
         } else if (currentTask === 'follow-mozilla') {
             followMozilla(event);
+        } else if (currentTask === 'joyofcoding') {
+            joyOfCoding(event);
         }
     });
 
